@@ -97,3 +97,52 @@ class Solution {
     }
 }
 ```
+
+## 216. Combination Sum III
+```java
+class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> res = new ArrayList<>();
+        backtrack(res,  new ArrayList<Integer>(), k, 1, n);
+        return res;
+    }
+    
+    private void backtrack(List<List<Integer>> res, List<Integer> comb, int k, int start, int n){
+        if(comb.size() == k && n == 0){
+            List<Integer> ans = new ArrayList<Integer>(comb);
+            res.add(ans);
+            return;
+        }
+        
+        for(int i = start; i <= 9; i++){
+            comb.add(i);
+            backtrack(res, comb, k, i + 1, n - i);
+            comb.remove(comb.size() - 1);
+        }
+    }
+}
+```
+
+## 78. Subsets
+```java
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        dfs(res, nums, new ArrayList<Integer>(), 0);
+        return res;
+    }
+    
+    private void dfs(List<List<Integer>> res, int[] nums, List<Integer> ans, int index){
+        if(index >= nums.length){
+            res.add(new ArrayList<Integer>(ans));
+            return;
+        }
+        
+        ans.add(nums[index]);
+        dfs(res, nums, ans, index + 1);
+        ans.remove(ans.size() - 1);
+        
+        dfs(res, nums, ans, index + 1);
+    }
+}
+```
