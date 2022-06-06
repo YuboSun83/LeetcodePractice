@@ -12,9 +12,7 @@
 6.ZigZag Conversion
 443.String Compression
 151.Reverse Words in a String
-186.Reverse Words in a String II
 809.Expressive Words
-616.Add Bold Tag in String
 848.Shifting Letters
 
 ### HARD
@@ -343,8 +341,31 @@ class Solution {
 }
 ```
 
-### 151.Reverse Words in a String
+### 848.Shifting Letters
+You are given a string s of lowercase English letters and an integer array shifts of the same length.
 
+Call the shift() of a letter, the next letter in the alphabet, (wrapping around so that 'z' becomes 'a').
+
+For example, shift('a') = 'b', shift('t') = 'u', and shift('z') = 'a'.
+Now for each shifts[i] = x, we want to shift the first i + 1 letters of s, x times.
+
+Return the final string after all such shifts to s are applied.
 ```java
-
+class Solution {
+    public String shiftingLetters(String s, int[] shifts) {
+        StringBuilder sb = new StringBuilder();
+        int x = 0;
+        for(int shift : shifts){
+            x = (x + shift) % 26;
+        }
+        
+        for(int i = 0; i < s.length(); i++){
+            int index = s.charAt(i) - 'a';
+            sb.append((char)((index + x) % 26 + 97));
+            x = Math.floorMod(x - shifts[i], 26);
+        }
+        
+        return sb.toString();
+    }
+}
 ```
